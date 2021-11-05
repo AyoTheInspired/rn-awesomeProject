@@ -8,6 +8,8 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
+import ColorBox from './components/ColorBox';
+import Food from './components/Food';
 
 const COLORS = [
   { colorName: 'Base03', hexCode: '#002b36' },
@@ -28,24 +30,20 @@ const COLORS = [
   { colorName: 'Green', hexCode: '#859900' },
 ];
 
+// console.disableYellowBox = true;
+
 const App = () => {
   return (
     <SafeAreaView style={styles.AndroidSafeArea}>
-      <View style={styles.container}>
-        <Text style={styles.text}>Here are some boxes of different colors</Text>
-        <View style={[styles.box, styles.cyan]}>
-          <Text style={styles.boxText}>Cyan: #2aa198</Text>
-        </View>
-        <View style={[styles.box, styles.blue]}>
-          <Text style={styles.boxText}>Blue: #268bd2</Text>
-        </View>
-        <View style={[styles.box, styles.magenta]}>
-          <Text style={styles.boxText}>Magenta: #d33682</Text>
-        </View>
-        <View style={[styles.box, styles.orange]}>
-          <Text style={styles.boxText}>Orange: #cb4b16</Text>
-        </View>
-      </View>
+      <FlatList
+        style={styles.container}
+        data={COLORS}
+        keyExtractor={(item) => item.colorName}
+        renderItem={({ item }) => (
+          <ColorBox colorName={item.colorName} hexCode={item.hexCode} />
+        )}
+        ListHeaderComponent={<Text style={styles.text}>Solarized</Text>}
+      />
     </SafeAreaView>
   );
 };
@@ -67,45 +65,6 @@ const styles = StyleSheet.create({
   boxText: {
     color: 'white',
     fontWeight: 'bold',
-  },
-
-  box: {
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-
-  cyan: {
-    backgroundColor: '#2aa198',
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-
-  blue: {
-    backgroundColor: '#268bd2',
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-
-  magenta: {
-    backgroundColor: '#d33682',
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-
-  orange: {
-    backgroundColor: '#cb4b16',
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
   },
 
   AndroidSafeArea: {
